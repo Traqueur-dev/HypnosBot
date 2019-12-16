@@ -15,6 +15,7 @@ import com.google.gson.stream.JsonReader;
 
 import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.listener.CommandListener;
+import fr.traqueur.hypnos.listener.MemberConnexion;
 import fr.traqueur.hypnos.utils.Logger;
 import fr.traqueur.hypnos.utils.Logger.LogType;
 import fr.traqueur.hypnos.utils.Settings;
@@ -38,6 +39,7 @@ public class ConnexionManager {
 	
 	private void registerListener() {
 		Main.getJDA().addEventListener(new CommandListener(Main.getCommandManager()));
+		Main.getJDA().addEventListener(new MemberConnexion(Main.getSettings()));
 	}
 	
 	public Settings readSettings() throws IOException {

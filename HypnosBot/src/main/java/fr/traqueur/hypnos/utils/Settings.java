@@ -8,6 +8,8 @@ public class Settings {
 	private String prefix;
 	private String guildID;
 	private String salonMsg;
+	private String joinMsg;
+	private String leaveMsg;
 	private String staffChannel;
 	private List<String> badwords;
 	private String commandChannel;
@@ -65,6 +67,22 @@ public class Settings {
 
 	public void setCommandChannel(String commandChannel) {
 		this.commandChannel = commandChannel;
+	}
+
+	public String getJoinMsg() {
+		return joinMsg;
+	}
+
+	public void setJoinMsg(String joinMsg) {
+		this.joinMsg = joinMsg;
+	}
+	
+	public String getLeaveMsg() {
+		return leaveMsg;
+	}
+
+	public void setLeaveMsg(String leaveMsg) {
+		this.leaveMsg = leaveMsg;
 	}
 	
 }

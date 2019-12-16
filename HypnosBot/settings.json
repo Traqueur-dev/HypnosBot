@@ -3,6 +3,8 @@
   "prefix": "!",
   "guildID": "652297982770675720",
   "salonMsg": "652305292209553418",
+  "joinMsg": "Bienvenue à toi %s sur Hypnos!!",
+  "leaveMsg": "Aurevoir %s, merci d\u0027être venu.",
   "staffChannel": "652305386463821834",
   "badwords": [
     "pute",
