@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
 import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.command.VCommand.CommandType;
 import fr.traqueur.hypnos.command.commands.ClearCommand;
+import fr.traqueur.hypnos.command.commands.JoinCommand;
+import fr.traqueur.hypnos.command.commands.LeaveCommand;
 import fr.traqueur.hypnos.command.commands.ZobiCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -38,6 +40,8 @@ public class CommandManager {
 		
 		addCommand(new ZobiCommand(null, false));
 		addCommand(new ClearCommand(null, false));
+		addCommand(new JoinCommand(null, false));
+		addCommand(new LeaveCommand(null, false));
 		
 		
 		//System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
