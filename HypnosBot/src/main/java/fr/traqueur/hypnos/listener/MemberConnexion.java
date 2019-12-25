@@ -18,8 +18,8 @@ public class MemberConnexion extends ListenerAdapter {
 	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
 		User user = event.getUser();
 		
-		if (!settings.getSalonMsg().equalsIgnoreCase("")) {
-			event.getGuild().getTextChannelById(settings.getSalonMsg()).sendMessage(String.format(settings.getJoinMsg(), user.getAsMention())).queue();
+		if (!settings.getJoinChannel().equalsIgnoreCase("")) {
+			event.getGuild().getTextChannelById(settings.getJoinChannel()).sendMessage(String.format(settings.getJoinMsg(), user.getAsMention())).queue();
 			return;
 		}
 	}
@@ -27,8 +27,8 @@ public class MemberConnexion extends ListenerAdapter {
 	@Override
 	public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
 		User user = event.getUser();
-		if (!settings.getSalonMsg().equalsIgnoreCase("")) {
-			event.getGuild().getTextChannelById(settings.getSalonMsg()).sendMessage(String.format(settings.getLeaveMsg(), user.getAsMention())).queue();
+		if (!settings.getLeaveChannel().equalsIgnoreCase("")) {
+			event.getGuild().getTextChannelById(settings.getLeaveChannel()).sendMessage(String.format(settings.getLeaveMsg(), user.getAsMention())).queue();
 			return;
 		}
 

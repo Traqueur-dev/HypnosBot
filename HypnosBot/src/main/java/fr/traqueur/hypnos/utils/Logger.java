@@ -5,6 +5,7 @@ public class Logger {
 	public enum LogType {
 		
 		WARN("[WARN]"),
+		INFO("[INFO]"),
 		SUCCESS("[SUCCESS]"),
 		ERROR("[ERROR]"),
 		;
@@ -22,8 +23,12 @@ public class Logger {
 	
 	private static String PREFIX = "[HypnosBot]";
 
+	
 	public static void log(LogType type, String log) {
 		System.out.println(type.getPrefix() + PREFIX + " " + log);
 	}
 	
+	public static void log(String log) {
+		log(LogType.INFO, log);
+	}
 }

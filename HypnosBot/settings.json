@@ -2,8 +2,9 @@
   "token": "NjUyMjU1NjM4OTY1MTkwNjg2.XemgeQ.DvutOTTL3Zab7YwKMOTRs1VKewI",
   "prefix": "!",
   "guildID": "652297982770675720",
-  "salonMsg": "652305292209553418",
-  "joinMsg": "%sWeshbeaugosse",
+  "joinChannel": "652305292209553418",
+  "joinMsg": "msg %s vient de nous quitter! zut.... ",
+  "leaveChannel": "652305292209553418",
   "leaveMsg": "%st\u0027esnul",
   "staffChannel": "652305386463821834",
   "badwords": [

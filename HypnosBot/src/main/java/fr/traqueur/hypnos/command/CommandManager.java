@@ -10,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.command.VCommand.CommandType;
 import fr.traqueur.hypnos.command.commands.ClearCommand;
+import fr.traqueur.hypnos.command.commands.HelpCommand;
 import fr.traqueur.hypnos.command.commands.JoinCommand;
 import fr.traqueur.hypnos.command.commands.LeaveCommand;
 import fr.traqueur.hypnos.command.commands.ZobiCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.PrivateChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
@@ -45,6 +47,7 @@ public class CommandManager {
 		addCommand(new ClearCommand(null, false, bot));
 		addCommand(new JoinCommand(null, false, bot));
 		addCommand(new LeaveCommand(null, false, bot));
+		addCommand(new HelpCommand(null, false, bot));
 		
 		
 		//System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
@@ -167,6 +170,23 @@ public class CommandManager {
 		
 		channel.sendMessage(builder.build()).complete();
 		
+	}
+	
+	public void sendHelp(User user) {
+		PrivateChannel pChannel = user.openPrivateChannel().complete();
+		
+		EmbedBuilder builder = new EmbedBuilder();
+		
+		builder.setColor(Color.GREEN);
+		builder.setTimestamp(OffsetDateTime.now());
+		builder.setTitle(user.getName());
+		builder.setFooter("Hypnos - 2020 ", null);
+		
+		for (VCommand command : getCommands()) {
+			builder.addField(command.getSyntaxe(), command.getDescription(), false);
+		}
+		
+		pChannel.sendMessage(builder.build()).queue();
 	}
 	
 	private String getStringArgs(String[] args){

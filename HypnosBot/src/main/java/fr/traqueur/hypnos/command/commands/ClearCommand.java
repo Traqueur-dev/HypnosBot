@@ -53,10 +53,10 @@ public class ClearCommand extends VCommand {
 			try {
 				((TextChannel) getMessageChannel()).deleteMessages(mess).queue(
 						success ->
-						getMessageChannel().sendMessage(" `" + args[1] + "` messages supprimés.").queue(m -> {
+						getMessageChannel().sendMessage(" `" + args[0] + "` messages supprimés.").queue(m -> {
 									m.delete().queueAfter(2, TimeUnit.SECONDS);
 								}),
-						error -> getMessageChannel().sendMessage("Une erreur est survenue!").queue());
+						error -> sendMessage("Une erreur est survenue!"));
 			} catch (IllegalArgumentException iae) {
 				sendMessage("Impossible de supprimer un message de plus de 2 semaines.");
 			}

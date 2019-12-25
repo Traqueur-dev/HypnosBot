@@ -7,8 +7,9 @@ public class Settings {
 	private String token;
 	private String prefix;
 	private String guildID;
-	private String salonMsg;
+	private String joinChannel;
 	private String joinMsg;
+	private String leaveChannel;
 	private String leaveMsg;
 	private String staffChannel;
 	private List<String> badwords;
@@ -31,10 +32,6 @@ public class Settings {
 	
 	public String getguildID() {
 		return guildID;
-	}
-	
-	public String getSalonMsg() {
-		return salonMsg;
 	}
 
 	public List<String> getBadwords() {
@@ -83,6 +80,22 @@ public class Settings {
 
 	public void setLeaveMsg(String leaveMsg) {
 		this.leaveMsg = leaveMsg;
+	}
+
+	public String getJoinChannel() {
+		return joinChannel;
+	}
+
+	public void setJoinChannel(String joinChannel) {
+		this.joinChannel = joinChannel;
+	}
+
+	public String getLeaveChannel() {
+		return leaveChannel;
+	}
+
+	public void setLeaveChannel(String leaveChannel) {
+		this.leaveChannel = leaveChannel;
 	}
 	
 }
