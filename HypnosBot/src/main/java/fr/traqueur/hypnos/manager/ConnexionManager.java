@@ -26,20 +26,26 @@ import net.dv8tion.jda.core.entities.Game.GameType;
 
 public class ConnexionManager {
 	
+	private Main bot;
+	
 	private static Gson gson;
 	
+	public ConnexionManager(Main bot) {
+		this.bot = bot;
+	}
+	
 	public void connect() throws LoginException, IOException {
-		Main.setSettings(readSettings());
-		Main.setJDA(new JDABuilder().setToken(Main.getSettings().getToken()).build());
-		Main.getJDA().getPresence().setGame(Game.of(GameType.WATCHING, "le dieu Hypnos"));
-		Main.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
+		bot.setSettings(readSettings());
+		bot.setJDA(new JDABuilder().setToken(bot.getSettings().getToken()).build());
+		bot.getJDA().getPresence().setGame(Game.of(GameType.WATCHING, "le dieu Hypnos"));
+		bot.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
 		registerListener();
-		Logger.log(LogType.SUCCESS, "Bot successful login!!");
+		Logger.log(LogType.SUCCESS, "Bot successful login!");
 	}
 	
 	private void registerListener() {
-		Main.getJDA().addEventListener(new CommandListener(Main.getCommandManager()));
-		Main.getJDA().addEventListener(new MemberConnexion(Main.getSettings()));
+		bot.getJDA().addEventListener(new CommandListener(bot));
+		bot.getJDA().addEventListener(new MemberConnexion(bot.getSettings()));
 	}
 	
 	public Settings readSettings() throws IOException {

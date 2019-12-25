@@ -5,16 +5,18 @@ import java.util.List;
 
 import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.command.CommandManager;
+import fr.traqueur.hypnos.utils.Settings;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class CommandListener extends ListenerAdapter {
 
+	private Settings settings;
 	private final CommandManager manager;
 
-	public CommandListener(CommandManager manager) {
-		super();
-		this.manager = manager;
+	public CommandListener(Main bot) {
+		this.settings = bot.getSettings();
+		this.manager = bot.getCommandManager();
 
 	}
 	
@@ -35,9 +37,9 @@ public class CommandListener extends ListenerAdapter {
 		 * Système decommande
 		 * */
 		
-		if (message.startsWith(Main.getSettings().getPrefix())){
+		if (message.startsWith(settings.getPrefix())){
 			
-			message = message.replaceFirst(Main.getSettings().getPrefix(), "");
+			message = message.replaceFirst(settings.getPrefix(), "");
 			
 			String command = message.split(" ")[0];
 			message = message.replaceFirst(command, "");

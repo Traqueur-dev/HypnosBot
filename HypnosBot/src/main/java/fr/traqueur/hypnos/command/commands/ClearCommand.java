@@ -12,8 +12,11 @@ import net.dv8tion.jda.core.entities.TextChannel;
 
 public class ClearCommand extends VCommand {
 
-	public ClearCommand(VCommand parent, boolean consoleCanExecute) {
+	private Main bot;
+	
+	public ClearCommand(VCommand parent, boolean consoleCanExecute, Main bot) {
 		super(parent, consoleCanExecute, false);
+		this.bot = bot;
 		this.addCommand("clear");
 	}
 
@@ -68,7 +71,7 @@ public class ClearCommand extends VCommand {
 
 	@Override
 	public String getSyntaxe() {
-		return Main.getSettings().getPrefix() + "clear <quantité>";
+		return bot.getSettings().getPrefix() + "clear <quantité>";
 	}
 
 	@Override

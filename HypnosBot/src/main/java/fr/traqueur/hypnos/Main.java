@@ -13,15 +13,23 @@ import net.dv8tion.jda.core.JDA;
 
 public class Main {
 
-	private static JDA jda;
-	private static Settings settings;
+	private Main bot;
 	
-	private static ConnexionManager connexionManager;
-	private static CommandManager commandManager;
+	private JDA jda;
+	private Settings settings;
+	
+	private ConnexionManager connexionManager;
+	private CommandManager commandManager;
 	
 	public static void main(String[] args) {
-		commandManager = new CommandManager();
-		connexionManager = new ConnexionManager();
+		new Main();
+	}
+	
+	public Main() {
+		bot = this;
+		
+		commandManager = new CommandManager(this);
+		connexionManager = new ConnexionManager(this);
 		try {
 			connexionManager.connect();
 			ConnexionManager.saveSettings(settings);
@@ -32,30 +40,35 @@ public class Main {
 		}
 	}
 	
-	public static void setJDA(JDA jda) {
-		Main.jda = jda;
+	public void setJDA(JDA jda) {
+		this.jda = jda;
 	}
 	
-	public static JDA getJDA() {
-		return Main.jda;
+	public JDA getJDA() {
+		return this.jda;
 	}	
-	public static ConnexionManager getConnexionManager() {
-		return Main.connexionManager;
+	public ConnexionManager getConnexionManager() {
+		return this.connexionManager;
 	}
 	
-	public static void setSettings(Settings settings) {
-		Main.settings = settings;
+	public void setSettings(Settings settings) {
+		this.settings = settings;
 	}
 	
-	public static Settings getSettings() {
-		return Main.settings;
+	public Settings getSettings() {
+		return this.settings;
 	}
 
-	public static CommandManager getCommandManager() {
-		return commandManager;
+	public CommandManager getCommandManager() {
+		return this.commandManager;
 	}
 
-	public static void setCommandManager(CommandManager commandManager) {
-		Main.commandManager = commandManager;
+	public void setCommandManager(CommandManager commandManager) {
+		this.commandManager = commandManager;
 	}
+
+	public Main getBot() {
+		return bot;
+	}
+
 }

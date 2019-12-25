@@ -8,8 +8,11 @@ import net.dv8tion.jda.core.entities.Message;
 
 public class JoinCommand extends VCommand {
 
-	public JoinCommand(VCommand parent, boolean consoleCanExecute) {
+	private Main bot;
+	
+	public JoinCommand(VCommand parent, boolean consoleCanExecute, Main bot) {
 		super(parent, consoleCanExecute, false);
+		this.bot = bot;
 		this.addCommand("messagebvn");
 		this.addCommand("msgbvn");
 		this.addCommand("messagebienvenue");
@@ -25,8 +28,8 @@ public class JoinCommand extends VCommand {
 		for (String string : args) {
 			builder.append(string + " ");
 		}
-		Main.getSettings().setJoinMsg(builder.toString());
-		ConnexionManager.saveSettings(Main.getSettings());
+		bot.getSettings().setJoinMsg(builder.toString());
+		ConnexionManager.saveSettings(bot.getSettings());
 		sendMessage(getUser().getAsMention() + " vient de modifier le message de bienvenue.");
 		return CommandType.SUCCESS;
 	}
@@ -38,7 +41,7 @@ public class JoinCommand extends VCommand {
 
 	@Override
 	public String getSyntaxe() {
-		return Main.getSettings().getPrefix() + "msgbvn <message>";
+		return bot.getSettings().getPrefix() + "msgbvn <message>";
 	}
 
 	@Override

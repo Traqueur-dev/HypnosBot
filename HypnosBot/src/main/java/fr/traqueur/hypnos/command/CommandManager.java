@@ -19,10 +19,13 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public class CommandManager {
-
+	
+	private Main bot;
+	
 	private List<VCommand> commands = new ArrayList<>();
 	
-	public CommandManager() {
+	public CommandManager(Main bot) {
+		this.bot = bot;
 		this.register();
 	}
 	
@@ -38,10 +41,10 @@ public class CommandManager {
 		 * @param BOOLEAN -> Use in every channel
 		 * */
 		
-		addCommand(new ZobiCommand(null, false));
-		addCommand(new ClearCommand(null, false));
-		addCommand(new JoinCommand(null, false));
-		addCommand(new LeaveCommand(null, false));
+		addCommand(new ZobiCommand(null, false, bot));
+		addCommand(new ClearCommand(null, false, bot));
+		addCommand(new JoinCommand(null, false, bot));
+		addCommand(new LeaveCommand(null, false, bot));
 		
 		
 		//System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
@@ -130,7 +133,7 @@ public class CommandManager {
 		EmbedBuilder builder = new EmbedBuilder();
 		builder.setColor(Color.RED);			
 		builder.setDescription(":x: "+message);		
-		Message messages = Main.getJDA().getTextChannelById(id).sendMessage(builder.build()).complete();
+		Message messages = bot.getJDA().getTextChannelById(id).sendMessage(builder.build()).complete();
 		
 	    Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {
 			
@@ -142,7 +145,7 @@ public class CommandManager {
 	}
 	
 	public boolean canExecuteHere(Message message){
-		if (!message.getTextChannel().getId().equals(Main.getSettings().getCommandChannel())){
+		if (!message.getTextChannel().getId().equals(bot.getSettings().getCommandChannel())){
 			message.delete().complete();
 			sendErrorMessage(message.getAuthor().getAsMention() + " vous ne pouvez pas exécuter de commande ici !", message.getTextChannel().getIdLong());
 			return false;
@@ -152,14 +155,14 @@ public class CommandManager {
 	
 	
 	private void logCommand(Message message, String[] args, String command){
-		TextChannel channel = message.getGuild().getTextChannelById(Main.getSettings().getLogChannel());
+		TextChannel channel = message.getGuild().getTextChannelById(bot.getSettings().getLogChannel());
 		
 		EmbedBuilder builder = new EmbedBuilder();
 		
 		builder.setColor(Color.GREEN);
 		builder.setTimestamp(OffsetDateTime.now());
 		builder.setTitle(message.getAuthor().getName());
-		builder.setFooter("Hypnos - 2019 ", null);
+		builder.setFooter("Hypnos - 2020 ", null);
 		builder.setDescription("Utilisation de la commande: **!" + command +"** "  + (getStringArgs(args) != null ? getStringArgs(args) : "") + " dans le channel " + message.getTextChannel().getAsMention());
 		
 		channel.sendMessage(builder.build()).complete();

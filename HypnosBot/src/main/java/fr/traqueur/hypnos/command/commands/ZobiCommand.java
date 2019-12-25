@@ -8,8 +8,11 @@ import net.dv8tion.jda.core.entities.Message;
 
 public class ZobiCommand extends VCommand {
 
-	public ZobiCommand(VCommand parent, boolean consoleCanExecute) {
+	private Main bot;
+
+	public ZobiCommand(VCommand parent, boolean consoleCanExecute, Main bot) {
 		super(parent, consoleCanExecute, false);
+		this.bot = bot;
 		this.addCommand("zobi");
 	}
 
@@ -29,7 +32,7 @@ public class ZobiCommand extends VCommand {
 
 	@Override
 	public String getSyntaxe() {
-		return Main.getSettings().getPrefix() + "zobi";
+		return bot.getSettings().getPrefix() + "zobi";
 	}
 
 	@Override
