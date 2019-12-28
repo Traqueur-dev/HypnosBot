@@ -1,5 +1,6 @@
 package fr.traqueur.hypnos.listener;
 
+import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.utils.Settings;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
@@ -10,8 +11,8 @@ public class MemberConnexion extends ListenerAdapter {
 
 	private Settings settings;
 
-	public MemberConnexion(Settings settings) {
-		this.settings = settings;
+	public MemberConnexion(Main bot) {
+		this.settings = bot.getSettings();
 	}
 
 	@Override

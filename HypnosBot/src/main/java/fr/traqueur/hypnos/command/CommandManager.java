@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import fr.traqueur.hypnos.Main;
 import fr.traqueur.hypnos.command.VCommand.CommandType;
+import fr.traqueur.hypnos.command.commands.BadWordsCommand;
 import fr.traqueur.hypnos.command.commands.ClearCommand;
 import fr.traqueur.hypnos.command.commands.HelpCommand;
 import fr.traqueur.hypnos.command.commands.JoinCommand;
@@ -48,9 +49,9 @@ public class CommandManager {
 		addCommand(new JoinCommand(null, false, bot));
 		addCommand(new LeaveCommand(null, false, bot));
 		addCommand(new HelpCommand(null, false, bot));
+		addCommand(new BadWordsCommand(null, false, bot));
 		
-		
-		//System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
+		System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
 		
 	}
 	
@@ -135,7 +136,7 @@ public class CommandManager {
 		
 		EmbedBuilder builder = new EmbedBuilder();
 		builder.setColor(Color.RED);			
-		builder.setDescription(":x: "+message);		
+		builder.setDescription(":x: "+ message);		
 		Message messages = bot.getJDA().getTextChannelById(id).sendMessage(builder.build()).complete();
 		
 	    Executors.newSingleThreadScheduledExecutor().schedule(new Runnable() {

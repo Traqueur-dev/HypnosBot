@@ -14,8 +14,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import fr.traqueur.hypnos.Main;
+import fr.traqueur.hypnos.listener.BotListener;
 import fr.traqueur.hypnos.listener.CommandListener;
 import fr.traqueur.hypnos.listener.MemberConnexion;
+import fr.traqueur.hypnos.listener.MessageListener;
 import fr.traqueur.hypnos.utils.Logger;
 import fr.traqueur.hypnos.utils.Logger.LogType;
 import fr.traqueur.hypnos.utils.Settings;
@@ -45,7 +47,9 @@ public class ConnexionManager {
 	
 	private void registerListener() {
 		bot.getJDA().addEventListener(new CommandListener(bot));
-		bot.getJDA().addEventListener(new MemberConnexion(bot.getSettings()));
+		bot.getJDA().addEventListener(new MemberConnexion(bot));
+		bot.getJDA().addEventListener(new MessageListener(bot));
+		bot.getJDA().addEventListener(new BotListener(bot));
 	}
 	
 	public Settings readSettings() throws IOException {
