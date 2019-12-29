@@ -4,6 +4,7 @@ import net.dv8tion.jda.core.entities.User;
 
 public class Account {
 	
+	private String idInviter;
 	private String id;
 	private String name;
 	private boolean isMuted;
@@ -11,7 +12,8 @@ public class Account {
 	private int joinInvitations;
 	private int bonusInvitations;
 	
-	public Account(User user) {
+	public Account(User user, User inviter) {
+		this.setIdInviter(inviter.getId());
 		this.id = user.getId();
 		this.name = user.getName();
 		this.setMuted(false);
@@ -37,13 +39,21 @@ public class Account {
 	}
 
 	public int getInvitations() {
-		return getJoinInvitations() + getBonusInvitations() - getLeaveInvitations() < 0 ? 0 : getJoinInvitations() + getBonusInvitations() - getLeaveInvitations();
+		return joinInvitations + bonusInvitations - leaveInvitations < 0 ? 0 : joinInvitations + bonusInvitations - leaveInvitations;
 	}
 
 	public int getLeaveInvitations() {
 		return leaveInvitations;
 	}
-
+	
+	public void addLeaveInvitations(int number) {
+		setLeaveInvitations(getLeaveInvitations() + number);
+	}
+	
+	public void addOneLeaveInvitation() {
+		addLeaveInvitations(1);
+	}
+	
 	public void setLeaveInvitations(int leaveInvitations) {
 		this.leaveInvitations = leaveInvitations;
 	}
@@ -55,6 +65,14 @@ public class Account {
 	public void setJoinInvitations(int joinInvitations) {
 		this.joinInvitations = joinInvitations;
 	}
+	
+	public void addJoinInvitations(int number) {
+		setJoinInvitations(getJoinInvitations() + number);
+	}
+	
+	public void addOneJoinInvitation() {
+		addJoinInvitations(1);
+	}
 
 	public int getBonusInvitations() {
 		return bonusInvitations;
@@ -62,6 +80,22 @@ public class Account {
 
 	public void setBonusInvitations(int bonusInvitations) {
 		this.bonusInvitations = bonusInvitations;
+	}
+	
+	public void addBonusInvitations(int number) {
+		setBonusInvitations(getBonusInvitations() + number);
+	}
+	
+	public void addOneBonusInvitation() {
+		addBonusInvitations(1);
+	}
+
+	public String getIdInviter() {
+		return idInviter;
+	}
+
+	public void setIdInviter(String idInviter) {
+		this.idInviter = idInviter;
 	}
 	
 }

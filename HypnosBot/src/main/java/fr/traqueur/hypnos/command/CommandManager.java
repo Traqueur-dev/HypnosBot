@@ -14,6 +14,7 @@ import fr.traqueur.hypnos.command.commands.ClearCommand;
 import fr.traqueur.hypnos.command.commands.HelpCommand;
 import fr.traqueur.hypnos.command.commands.JoinCommand;
 import fr.traqueur.hypnos.command.commands.LeaveCommand;
+import fr.traqueur.hypnos.command.commands.SaveCommand;
 import fr.traqueur.hypnos.command.commands.ZobiCommand;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -43,14 +44,17 @@ public class CommandManager {
 		 * @param BOOLEAN -> Use by console
 		 * @param BOOLEAN -> Use in every channel
 		 * */
+		VCommand parent = null;
+		boolean consoleCanExecute = false;
 		
-		addCommand(new ZobiCommand(null, false, bot));
-		addCommand(new ClearCommand(null, false, bot));
-		addCommand(new JoinCommand(null, false, bot));
-		addCommand(new LeaveCommand(null, false, bot));
-		addCommand(new HelpCommand(null, false, bot));
-		addCommand(new BadWordsCommand(null, false, bot));
-		
+		addCommand(new ZobiCommand(parent, consoleCanExecute, bot));
+		addCommand(new ClearCommand(parent, consoleCanExecute, bot));
+		addCommand(new JoinCommand(parent, consoleCanExecute, bot));
+		addCommand(new LeaveCommand(parent, consoleCanExecute, bot));
+		addCommand(new HelpCommand(parent, consoleCanExecute, bot));
+		addCommand(new BadWordsCommand(parent, consoleCanExecute, bot));
+		addCommand(new SaveCommand(parent, consoleCanExecute, bot));
+
 		System.out.println("[HypnosBot] Nombre de commande enregistrée(s): " + commands.size());
 		
 	}

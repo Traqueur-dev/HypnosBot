@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
@@ -30,10 +33,14 @@ public class ConnexionManager {
 	
 	private Main bot;
 	
+	private AccountManager accountManager;
+	
 	private static Gson gson;
 	
 	public ConnexionManager(Main bot) {
 		this.bot = bot;
+		this.accountManager = bot.getAccountManager();
+		bot.setExecutor(Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors()));
 	}
 	
 	public void connect() throws LoginException, IOException {
@@ -42,6 +49,7 @@ public class ConnexionManager {
 		bot.getJDA().getPresence().setGame(Game.of(GameType.WATCHING, "le dieu Hypnos"));
 		bot.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
 		registerListener();
+		tasks();
 		Logger.log(LogType.SUCCESS, "Bot successful login!");
 	}
 	
@@ -50,6 +58,17 @@ public class ConnexionManager {
 		bot.getJDA().addEventListener(new MemberConnexion(bot));
 		bot.getJDA().addEventListener(new MessageListener(bot));
 		bot.getJDA().addEventListener(new BotListener(bot));
+	}
+	
+	@SuppressWarnings("unused")
+	private void tasks() {
+		ScheduledFuture<?> save = bot.getExecutor().scheduleWithFixedDelay(new Runnable() {
+			
+			@Override
+			public void run() {
+				accountManager.saveAccounts();
+			}
+		}, 10, 10, TimeUnit.MINUTES);
 	}
 	
 	public Settings readSettings() throws IOException {

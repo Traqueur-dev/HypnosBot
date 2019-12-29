@@ -1,10 +1,8 @@
 package fr.traqueur.hypnos;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 import javax.security.auth.login.LoginException;
 
@@ -15,27 +13,29 @@ import fr.traqueur.hypnos.utils.Logger;
 import fr.traqueur.hypnos.utils.Logger.LogType;
 import fr.traqueur.hypnos.utils.Settings;
 import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Invite;
 
 public class Main {
 	
 	private JDA jda;
 	private Settings settings;
+	private ScheduledExecutorService executor;
 	
 	private ConnexionManager connexionManager;
 	private CommandManager commandManager;
 	private AccountManager accountManager;
+	
+
+	private List<Invite> invites;
 	
 	public static void main(String[] args) {
 		new Main();
 	}
 	
 	public Main() {
-		
-		ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
-		
+		accountManager = new AccountManager(this);
 		commandManager = new CommandManager(this);
 		connexionManager = new ConnexionManager(this);
-		accountManager = new AccountManager();
 		try {
 			connexionManager.connect();
 			ConnexionManager.saveSettings(settings);
@@ -45,14 +45,6 @@ public class Main {
 			Logger.log(LogType.ERROR, "Error with settings file, maybe it doesn't exist.");
 		}
 		
-		ScheduledFuture<?> save = executor.scheduleWithFixedDelay(new Runnable() {
-			
-			@Override
-			public void run() {
-				accountManager.saveAccounts();
-				
-			}
-		}, 10, 20, TimeUnit.MINUTES);
 	}
 	
 	public void setJDA(JDA jda) {
@@ -84,6 +76,22 @@ public class Main {
 
 	public AccountManager getAccountManager() {
 		return accountManager;
+	}
+
+	public ScheduledExecutorService getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(ScheduledExecutorService executor) {
+		this.executor = executor;
+	}
+
+	public List<Invite> getInvites() {
+		return invites;
+	}
+
+	public void setInvites(List<Invite> invites) {
+		this.invites = invites;
 	}
 
 }

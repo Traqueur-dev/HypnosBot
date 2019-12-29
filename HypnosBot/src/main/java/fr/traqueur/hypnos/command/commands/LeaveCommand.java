@@ -31,9 +31,11 @@ public class LeaveCommand extends VCommand {
 		case "msg":
 			StringBuilder builder = new StringBuilder();
 			for (String string : args) {
-				builder.append(string + " ");
+				if (!string.equalsIgnoreCase("message") && !string.equalsIgnoreCase("msg")) {
+					builder.append(string + " ");
+				}
 			}
-			bot.getSettings().setJoinMsg(builder.toString());
+			bot.getSettings().setLeaveMsg(builder.toString());
 			ConnexionManager.saveSettings(bot.getSettings());
 			sendMessage(getUser().getAsMention() + " vient de modifier le message de leave.");
 			break;
